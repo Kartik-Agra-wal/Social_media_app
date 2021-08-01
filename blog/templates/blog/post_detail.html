@@ -1,13 +1,33 @@
 {% extends 'blog/base.html' %}
-
+{% load crispy_forms_tags %}
 {% block content %}
     <article class="post">
-        {% if post.published_date %}
+        <img class =" rounded-circle article-img"src ="{{ object.author.profile.image.url}}">
+        {% if object.published_date %}
             <time class="date">
-                {{ post.published_date }}
+                {{ object.published_date }}
             </time>
         {% endif %}
-        <h2>{{ post.title }}</h2>
-        <p>{{ post.text|linebreaksbr }}</p>
+        {% if object.author == user %}
+        <div>
+          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+          <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+        </div>
+         {% endif %}
+        <h2>{{ object.title }}</h2>
+        <p>{{ object.content|linebreaksbr }}</p>
+        <img class ="article-img"src ="{{ object.image}}">
     </article>
+    
+    <a class="navbar-brand mr-4" href="{% url 'post-comment' object.id %}">Comment Section</a>
+
+    
+          
+
+        
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
